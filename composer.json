@@ -1,0 +1,31 @@
+{
+    "name": "kosv/dsl-tools",
+    "type": "library",
+    "description": "Library for work with ABBYY DSL dictionaries",
+    "authors": [
+        {
+            "name": "Konstantin Voloshchuk",
+            "email": "kosv.dev@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "codeception/codeception": "^2.3"
+    },
+    "license": "MIT",
+    "require": {
+        "php": "^5.6 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kosv\\DslTools\\": "src/"
+        },
+        "files": [
+          "src/init.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kosv\\DslTools\\Tests\\": "tests/"
+        }
+    }
+}
