@@ -40,7 +40,7 @@ class Parser
             'selectText' => '(?<=").*(?=")'
         ],
         self::CARD_HEAD => [
-            'match' => "^\S.*",
+            'match' => "^((?=[^#])\S).*",
         ],
         self::CARD_BODY => [
             'match' => "^[ \t]+",
