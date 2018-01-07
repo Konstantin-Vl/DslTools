@@ -7,7 +7,7 @@ class Card
     /**
      * Card constructor.
      *
-     * @param string $rawCard
+     * @param string|array $rawCard
      */
     public function __construct($rawCard)
     {
