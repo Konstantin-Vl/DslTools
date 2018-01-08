@@ -2,8 +2,25 @@
 
 namespace Kosv\DslTools;
 
+use LengthException;
+
 class Card
 {
+    /**
+     * @var array
+     */
+    private $rawBody = [];
+
+    /**
+     * @var string
+     */
+    private $rawHeadText;
+
+    /**
+     * @var \Kosv\DslTools\Parser
+     */
+    protected $parser;
+
     /**
      * Card constructor.
      *
@@ -11,7 +28,8 @@ class Card
      */
     public function __construct($rawCard)
     {
-        // TODO: Implement __construct() method.
+        $this->parser = new Parser();
+        $this->prepareObject($rawCard);
     }
 
     /**
@@ -19,14 +37,47 @@ class Card
      */
     public function getHeadText()
     {
-        // TODO: Implement getHeadText() method.
+        return (string) $this->parser
+            ->rmMetadata(Parser::CARD_HEAD, trim($this->rawHeadText));
     }
 
     /**
      * @return \Kosv\DslTools\Node[]
      */
-    public function getNods()
+    public function getNodes()
     {
-        // TODO: Implement getNods() method.
+        $nodes = [];
+        foreach ($this->rawBody as $rawNode) {
+            $nodes[] = new Node(trim($rawNode));
+        }
+
+        return $nodes;
     }
+
+    /**
+     * @param string|array $rawCard
+     * @throws LengthException
+     */
+    private function prepareObject($rawCard)
+    {
+        if (!is_array($rawCard)) {
+            $rawCard = explode("\n", $rawCard);
+        }
+
+        if (!$rawCard) {
+            throw new LengthException('The card can not be zero length');
+        }
+
+        if ($this->parser->match(Parser::CARD_HEAD, $rawCard[0])) {
+            $this->rawHeadText = $rawCard[0];
+            unset($rawCard[0]);
+        }
+
+        array_map(function ($value) {
+            if ($this->parser->match(Parser::CARD_BODY, $value)) {
+                $this->rawBody[] = $value;
+            }
+        }, $rawCard);
+    }
+
 }
