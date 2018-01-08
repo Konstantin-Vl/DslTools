@@ -48,7 +48,7 @@ class Card
     {
         $nodes = [];
         foreach ($this->rawBody as $rawNode) {
-            $nodes[] = new Node(trim($rawNode));
+            $nodes[] = new Node($rawNode);
         }
 
         return $nodes;
