@@ -60,6 +60,20 @@ class Parser
     /**
      * @param int $syntaxFor
      * @param string $str
+     * @return string|false
+     */
+    public function rmMetadata($syntaxFor, $str)
+    {
+        if (!isset($this->syntaxMapping[$syntaxFor]['rmMetadata'])) {
+            throw new InvalidArgumentException('The syntax element does not support cleaning.');
+        }
+
+        return mb_ereg_replace($this->syntaxMapping[$syntaxFor]['rmMetadata'], '', $str);
+    }
+
+    /**
+     * @param int $syntaxFor
+     * @param string $str
      * @return string
      * @throws InvalidArgumentException
      */
