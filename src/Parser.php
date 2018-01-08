@@ -41,6 +41,7 @@ class Parser
         ],
         self::CARD_HEAD => [
             'match' => "^((?=[^#])\S).*",
+            'rmMetadata' => "(?<!\\\)[\{|\}]"
         ],
         self::CARD_BODY => [
             'match' => "^[ \t]+",
